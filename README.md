@@ -117,6 +117,7 @@ This dataset is a combination of three sources:
 - **Br35H**  
 
 It contains **7023 MRI images** categorized into four classes (**Glioma, Meningioma, Pituitary Tumor, and No Tumor**).  
+Link to the dataset: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
 
 🔹 *Note:* Images vary in size, so pre-processing includes **resizing and removing extra margins** for better accuracy.  
 
