@@ -80,8 +80,8 @@ If you want to run this project locally using Flask, follow these steps:
 
 #### **Step 1: Clone the Repository**  
 ```bash
-$ git clone https://github.com/your-username/EarlyMed-Brain-Tumor-Diagnosis.git
-$ cd EarlyMed-Brain-Tumor-Diagnosis
+$ git clone https://github.com/Mahatir-Ahmed-Tusher/EarlyMed-Brain-Tumor-Detection-System-using-VGG16-Transfer-Learning.gitt
+$ cd EarlyMed-Brain-Tumor-Detection-System-using-VGG16-Transfer-Learning
 ```
 
 #### **Step 2: Create Virtual Environment (Recommended)**  
