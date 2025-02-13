@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarlyMed Brain Tumor Detection System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
+            color: #343a40;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand img {
+            height: 60px;
+        }
+
+        .nav-link {
+            color: #0d6efd !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #198754 !important;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-container img {
+            max-width: 300px;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+
+        .upload-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .upload-icon {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #0d6efd, #198754);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .results-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .confidence-bar {
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #0d6efd, #198754);
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .disclaimer {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border-left: 5px solid #ffc107;
+        }
+
+        /* Page specific styles */
+        .understanding-results, .how-it-works {
+            display: none;
+        }
+
+        .understanding-results h2, .how-it-works h2 {
+            color: #0d6efd;
+            margin-bottom: 2rem;
+        }
+
+        .tumor-type {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://i.postimg.cc/PxxRL7h5/logo.png" alt="EarlyMed Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showHome()">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showUnderstanding()">Understanding Your Results</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showHowItWorks()">How Does it Work?</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="container home-page">
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/PxxRL7h5/logo.png" alt="EarlyMed Logo">
+        </div>
+        
+        <div class="intro-text">
+            <h3><strong>Welcome to EarlyMed Brain Tumor Diagnosis! 🧠✨</strong></h3>
+            <p>Detecting brain tumors early can make all the difference, and that's exactly what EarlyMed Brain Tumor Diagnosis is here to help with! Simply upload your brain MRI scan, and our AI-powered system will analyze it in seconds, providing a preliminary assessment of potential tumor types (Glioma, Meningioma, Pituitary, or No Tumor)—all with remarkable accuracy.</p>
+            <p>This project is part of EarlyMed, an innovative AI-driven healthcare SaaS platform designed for real-time health assessments and early medical predictions. While not a replacement for professional diagnosis, it offers a fast and reliable first step toward better healthcare.</p>
+        </div>
+
+        <div class="upload-container text-center">
+            <img src="https://i.postimg.cc/MH6DvPBp/icon-3.png" alt="Upload Icon" class="upload-icon">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-upload me-2"></i>Upload and Analyze
+                </button>
+            </form>
+        </div>
+
+        {% if result %}
+        <div class="results-container">
+            <h3 class="text-center mb-4">Analysis Results</h3>
+            <div class="result-details">
+                <h4 class="text-success"><i class="fas fa-check-circle me-2"></i>{{ result }}</h4>
+                <p>Confidence: {{ confidence }}</p>
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width: { confidence|replace('%', '') }%"></div>
+                </div>
+                <img src="{{ file_path }}" class="img-fluid rounded mt-3" alt="Analyzed MRI Scan">
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="disclaimer">
+            <h5>⚠️ Disclaimer</h5>
+            <p>We strongly urge users to consult a healthcare professional for appropriate medical guidance after getting the diagnosis.</p>
+            <p>This initiative is developed by our team at VIT-AP University with the goal of empowering individuals to be more aware of their health before visiting a doctor. Our mission is to leverage AI for early detection and better healthcare awareness.</p>
+        </div>
+    </div>
+
+    <!-- Understanding Your Results Page -->
+    <div class="container understanding-results" style="display: none;">
+       <!-- Content for Understanding Your Results page -->
+<h2 class="text-center">Understanding Your Diagnosis & Next Steps 🧠💡</h2>
+
+<p>Receiving a diagnosis can feel overwhelming, but understanding your results can help you take the right steps for your health. Here’s a simple guide to the tumor types detected by EarlyMed Brain Tumor Diagnosis and what you should do next.</p>
+
+<hr>
+
+<h3>🧠 Glioma Tumor</h3>
+<p><strong>What It Means:</strong> Gliomas develop in the glial cells of the brain or spinal cord. They can be low-grade (slow-growing) or high-grade (aggressive).</p>
+<p><strong>What to Do:</strong></p>
+<ul>
+    <li>✔️ Consult a neurologist or oncologist for a detailed MRI and biopsy.</li>
+    <li>✔️ Treatment options may include surgery, radiation, or chemotherapy.</li>
+    <li>✔️ Maintain a healthy lifestyle with proper nutrition and stress management.</li>
+</ul>
+
+<hr>
+
+<h3>🧠 Meningioma Tumor</h3>
+<p><strong>What It Means:</strong> Meningiomas grow in the membranes surrounding the brain and spinal cord. Most are benign but can cause pressure on the brain.</p>
+<p><strong>What to Do:</strong></p>
+<ul>
+    <li>✔️ Seek medical advice for further imaging and observation.</li>
+    <li>✔️ If the tumor is small and asymptomatic, doctors may monitor it over time.</li>
+    <li>✔️ Surgery or radiation therapy may be needed if symptoms worsen.</li>
+</ul>
+
+<hr>
+
+<h3>🧠 Pituitary Tumor</h3>
+<p><strong>What It Means:</strong> Pituitary tumors affect the gland responsible for hormone production, potentially causing hormonal imbalances. Most are non-cancerous.</p>
+<p><strong>What to Do:</strong></p>
+<ul>
+    <li>✔️ Endocrinologists can help assess hormone levels and treatment needs.</li>
+    <li>✔️ Medication, surgery, or radiation therapy may be recommended.</li>
+    <li>✔️ Watch for symptoms like vision issues, headaches, or fatigue.</li>
+</ul>
+
+<hr>
+
+<h3>✅ No Tumor Detected</h3>
+<p><strong>What It Means:</strong> Our AI did not detect any signs of a brain tumor in your scan. However, this does not rule out all medical conditions.</p>
+<p><strong>What to Do:</strong></p>
+<ul>
+    <li>✔️ If you experience symptoms like persistent headaches, dizziness, or vision problems, consult a doctor for further tests.</li>
+    <li>✔️ Maintain regular health check-ups for early detection of any issues.</li>
+</ul>
+
+<hr>
+
+<p><strong>⚠️ Important Reminder:</strong> Always seek professional medical advice for proper treatment plan.</p>
+
+<p class="text-center"><strong>🔹 Your health matters. Take the next step today. 💙</strong></p>
+
+    </div>
+
+    <!-- How Does it Work Page -->
+    <!-- How Does it Work Page -->
+<div class="container how-it-works" style="display: none;">
+    <!-- Content for How Does it Work page -->
+    <h2 class="text-center">How Does EarlyMed Brain Tumor Diagnosis Work? 🤖🧠</h2>
+    
+    <p>At EarlyMed, we believe in the power of AI to assist in early health detection. Our <strong>AI-powered Brain Tumor Diagnosis</strong> tool is designed to analyze MRI scans and provide a <strong>preliminary assessment</strong> of potential tumor types—all in just a few seconds. Here’s how it works and why you can trust it:</p>
+
+    <hr>
+
+    <h3>🔍 Step-by-Step Process</h3>
+
+    <h4>1️⃣ Upload Your MRI Scan</h4>
+    <p>Simply upload a clear MRI scan of the brain. Our system supports standard medical imaging formats for accurate analysis.</p>
+
+    <h4>2️⃣ AI-Powered Image Processing</h4>
+    <p>Our deep learning model, trained on thousands of MRI images, processes your scan. It examines patterns and features that indicate the presence of a tumor.</p>
+
+    <h4>3️⃣ Classification & Prediction</h4>
+    <p>The AI model classifies the image into one of four categories:</p>
+    <ul>
+        <li>✔️ <strong>Glioma</strong></li>
+        <li>✔️ <strong>Meningioma</strong></li>
+        <li>✔️ <strong>Pituitary Tumor</strong></li>
+        <li>✔️ <strong>No Tumor</strong></li>
+    </ul>
+    <p>Along with the classification, you’ll receive a <strong>confidence score</strong>, indicating how certain the model is about its prediction.</p>
+
+    <h4>4️⃣ Instant Results & Next Steps</h4>
+    <p>Your result is displayed within seconds. While our system provides a reliable first assessment, we strongly recommend consulting a doctor for a detailed clinical evaluation.</p>
+
+    <hr>
+
+    <h3>🛡️ Why Is It Reliable?</h3>
+
+    <ul>
+        <li>✅ <strong>Trained on Real Medical Data</strong> – Our AI model has learned from thousands of MRI scans, improving its accuracy with each case.</li>
+        <li>✅ <strong>Deep Learning for Precision</strong> – We use a <strong>Convolutional Neural Network (CNN)</strong>, a state-of-the-art AI model designed for medical image analysis.</li>
+        <li>✅ <strong>Fast & Accessible</strong> – Unlike traditional hospital scans, which take time for expert evaluation, EarlyMed provides a quick initial assessment from anywhere.</li>
+        <li>✅ <strong>Continuous Improvement</strong> – Our model is regularly updated and refined to enhance accuracy and reliability based on new medical data.</li>
+    </ul>
+
+    <hr>
+
+    <p><strong>⚠️ Important Reminder:</strong> For any medical guidance for brain tumor we recommend you to consult medical professionals</p>
+
+    <p class="text-center"><strong>🔹 Your health matters, and early detection can make a difference. Stay informed, stay proactive! 💙</strong></p>
+</div>
+
+
+    <script>
+        function showHome() {
+            document.querySelector('.home-page').style.display = 'block';
+            document.querySelector('.understanding-results').style.display = 'none';
+            document.querySelector('.how-it-works').style.display = 'none';
+        }
+
+        function showUnderstanding() {
+            document.querySelector('.home-page').style.display = 'none';
+            document.querySelector('.understanding-results').style.display = 'block';
+            document.querySelector('.how-it-works').style.display = 'none';
+        }
+
+        function showHowItWorks() {
+            document.querySelector('.home-page').style.display = 'none';
+            document.querySelector('.understanding-results').style.display = 'none';
+            document.querySelector('.how-it-works').style.display = 'block';
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

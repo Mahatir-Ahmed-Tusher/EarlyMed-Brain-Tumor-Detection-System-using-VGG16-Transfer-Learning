@@ -1,0 +1,1 @@
+The saved model is 122 MB and GitHub does not approve files that exceeds 100 MB. This could have been uploaded via git lfs, but still you can download the saved model from this google drive link: https://drive.google.com/file/d/1C-1VND4LD8-lK9o2Rdc05SzCxr2EyYEs/view?usp=sharing

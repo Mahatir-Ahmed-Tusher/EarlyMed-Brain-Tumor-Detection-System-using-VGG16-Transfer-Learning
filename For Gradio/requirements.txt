@@ -1,0 +1,35 @@
+# EarlyMed Brain Tumor Detection - Requirements
+# Usage: pip install -r requirements.txt
+
+# Base ----------------------------------------
+tensorflow>=2.9.0  # For loading and running the trained VGG16 model
+gradio>=4.0.0  # For building the interactive UI
+numpy>=1.21.0  # For numerical operations and handling image arrays
+opencv-python>=4.1.1  # For image processing (if needed in the future)
+Pillow>=8.0.0  # For loading and resizing images
+PyYAML>=5.3.1  # For configuration management
+requests>=2.23.0  # For handling any API requests (if needed)
+scipy>=1.4.1  # For scientific computations
+tqdm>=4.64.0  # For progress visualization
+
+# Logging -------------------------------------
+tensorboard>=2.4.1  # For logging training/diagnostics
+# clearml
+# comet
+
+# Plotting ------------------------------------
+matplotlib>=3.2.2  # For visualization in the notebook
+pandas>=1.1.4  # For handling tabular data
+seaborn>=0.11.0  # For enhanced plots
+
+# Export (Not Needed for Gradio Deployment) --------------------------------------
+# tensorflowjs>=3.9.0  # TF.js export (only needed for JS-based models)
+# openvino-dev  # OpenVINO export (not needed for Hugging Face)
+
+# Extras --------------------------------------
+ipython  # For interactive notebook executions
+psutil  # For system utilization monitoring
+thop>=0.1.1  # FLOPs computation (if needed for model evaluation)
+
+# HUB -----------------------------------------
+GitPython>=3.1.24  # For working with repositories if needed
