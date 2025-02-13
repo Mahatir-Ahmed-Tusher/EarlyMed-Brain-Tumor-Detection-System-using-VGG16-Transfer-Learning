@@ -1,6 +1,6 @@
 ![logo](https://github.com/user-attachments/assets/c76f0457-f570-4551-81e7-feb6a56c8a4d)
 
-# **EarlyMed: Brain Tumor Diagnosis**  
+# **EarlyMed: Brain Tumor Detection System using VGG16 Transfer Learning**  
 
 ### **An AI-powered Brain Tumor Detection System using VGG16 & Transfer Learning**  
 
@@ -45,19 +45,22 @@ Our model classifies brain MRI scans into the following **four classes**:
 ### **How It Works:**  
 Users can **upload an MRI scan**, and the system will analyze the image using deep learning and predict the tumor type **along with a confidence score (probability %)**.  
 
+![image](https://github.com/user-attachments/assets/e218fe2e-56ca-4fb4-8bc8-dfbacc584c30)
+
+
 ---  
 
 ## **📂 Project Structure**  
 ```
 ├── For Gradio/              # Files for Gradio Deployment
 │   ├── app.py               # Gradio App Script
-│   ├── model.h5             # Pretrained Model Weights
+│   ├── Saved Model.txt      # Google Drive link for model.h5
 │   ├── requirements.txt     # Dependencies for Hugging Face Spaces
 │
 ├── templates/               # Frontend Files for Flask Deployment
 │   ├── index.html           # Main Web UI
 │
-├── .ipynb file
+├── .ipynb file              # Jupyter Notebook
 │
 ├── app.py                   # Flask Backend Code
 ├── Saved Model.txt          # Google Drive link for model.h5
@@ -118,6 +121,59 @@ It contains **7023 MRI images** categorized into four classes (**Glioma, Meningi
 🔹 *Note:* Images vary in size, so pre-processing includes **resizing and removing extra margins** for better accuracy.  
 
 ---  
+
+# **🛠️ Detailed System Architecture**
+
+The **EarlyMed: Brain Tumor Diagnosis** system follows a structured deep learning pipeline, integrating **pretrained models, Flask-based API, and Gradio UI** for seamless deployment and accessibility. The architecture can be divided into the following key stages:
+
+## **1️⃣ Data Preprocessing & Augmentation**
+- Raw MRI images are sourced from multiple datasets (Figshare, SARTAJ, Br35H) and undergo preprocessing:
+  - **Resizing**: Standardizing dimensions for consistent input.
+  - **Normalization**: Scaling pixel values between 0 and 1.
+  - **Data Augmentation**: Random transformations (rotation, flipping, zooming) to enhance model generalization.
+
+## **2️⃣ Deep Learning Model (VGG16 with Transfer Learning)**
+- **VGG16 Backbone**: Utilized as a feature extractor.
+- **Custom Fully Connected Layers**:
+  - Flatten → Dense Layers → Softmax for classification.
+- **Optimization & Training**:
+  - Loss Function: Categorical Crossentropy.
+  - Optimizer: Adam.
+  - Validation & Testing on separate data.
+
+## **3️⃣ Model Inference & Prediction**
+- The trained model is exported as **model.h5**.
+- Input: **User uploads an MRI image**.
+- Output: **Prediction of tumor type (Glioma, Meningioma, Pituitary, or No Tumor) with confidence score**.
+
+## **4️⃣ Deployment Strategy**
+### **🔹 Web-Based Deployment (Gradio on Hugging Face)**
+- Interactive UI using **Gradio** for quick testing.
+- Hosted on **Hugging Face Spaces** for public accessibility.
+
+### **🔹 Local Deployment (Flask + HTML Frontend)**
+- Flask API serves the model locally.
+- **Frontend (index.html)**: Simple UI for image upload & result display.
+- Users can run it on their machines by cloning the repository.
+
+## **5️⃣ System Workflow**
+```
+User Uploads MRI → Image Preprocessing → Model Prediction → Output with Confidence Score
+```
+
+## **🔹 Summary of Architecture**
+| **Stage**              | **Components**                                |
+|----------------------|--------------------------------------|
+| **Data Handling**   | Figshare, SARTAJ, Br35H Datasets     |
+| **Preprocessing**   | Resizing, Normalization, Augmentation |
+| **Model**          | VGG16 + Custom Layers (Transfer Learning) |
+| **Backend**        | Flask API (Local), Gradio (Cloud)       |
+| **Frontend**       | HTML + CSS (Flask) / Gradio UI          |
+| **Deployment**     | Hugging Face Spaces, Local Flask Setup |
+
+This system ensures high accuracy, scalability, and ease of deployment for both researchers and general users seeking early tumor diagnosis.
+
+---
 
 ## **📊 Model Performance**  
 The model achieves high accuracy across different tumor types:  
